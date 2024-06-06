@@ -11,6 +11,7 @@ function main(){
     const topics_svg_close = tool_bar_topics.querySelector("#topics-svg-close");
     const side_box = document.querySelector(".side-box");
     const side_box_resizer = document.querySelector(".side-box-resizer");
+    const side_box_resizer_bar = document.querySelector(".side-box-resizer-bar");
     let isResizing = false;
     let sideBoxOriginalWidth, sideBoxBoundingBox;
 
@@ -43,6 +44,7 @@ function main(){
         isResizing = true;
         sideBoxOriginalWidth = side_box.offsetWidth;
         sideBoxBoundingBox = side_box.getBoundingClientRect();
+        side_box_resizer_bar.style.backgroundColor = "#088";
 
         document.addEventListener("mousemove", resizeSideBox);
         document.addEventListener("mouseup", stopResizeSideBox);
@@ -73,12 +75,16 @@ function main(){
     function stopResizeSideBox(){
         if(isResizing){
             isResizing = false;
+
+            side_box_resizer_bar.style.backgroundColor = "#ccc";
+
             document.removeEventListener("mousemove", resizeSideBox);
             document.removeEventListener("mouseup", stopResizeSideBox)
 
             document.removeEventListener("touchmove", resizeSideBox);
             document.removeEventListener("touchend", stopResizeSideBox);
             document.removeEventListener("touchcancel", stopResizeSideBox);
+
         }
         
     }
