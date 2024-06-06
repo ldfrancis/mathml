@@ -21,6 +21,10 @@ function main(){
     side_box_resizer.addEventListener("mousedown", startSideBoxResize)
     side_box_resizer.addEventListener("touchstart", startSideBoxResize)
 
+    function isTouchEvent(event) {
+        return 'touches' in event;
+    }
+
     function toggleSideBox(event){
         topics_expand = !topics_expand;
             if(topics_expand){
@@ -50,7 +54,15 @@ function main(){
 
     function resizeSideBox(event){
         let sideBoxResizerBoundingBox = side_box_resizer.getBoundingClientRect();
-        const dx = parseInt(event.clientX-(sideBoxBoundingBox.x+sideBoxBoundingBox.width-sideBoxResizerBoundingBox.width/2)); 
+        let clientX;
+        if (isTouchEvent(event)){
+            const touch = event.touches[0];
+            clientX = touch.clientX;
+        }
+        else{
+            clientX = event.clientX;
+        }
+        const dx = parseInt(clientX-(sideBoxBoundingBox.x+sideBoxBoundingBox.width-sideBoxResizerBoundingBox.width/2)); 
         console.log(dx);
 
         const width = Math.max(220, sideBoxOriginalWidth + dx)
